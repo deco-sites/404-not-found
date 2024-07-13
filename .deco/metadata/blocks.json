@@ -44,5 +44,11 @@
   "/.deco/blocks/deco-htmx.json": {
     "blockType": "apps",
     "__resolveType": "site/apps/deco/htmx.ts"
+  },
+  "/.deco/blocks/pages-404-480700.json": {
+    "name": "404",
+    "path": "/*",
+    "blockType": "pages",
+    "__resolveType": "website/pages/Page.tsx"
   }
 }
