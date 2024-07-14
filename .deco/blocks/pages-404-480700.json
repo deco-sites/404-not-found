@@ -5,8 +5,8 @@
     {
       "__resolveType": "site/sections/404Game.tsx",
       "game": {},
-      "name": "<p>Yay! You found the Capy 🦫</p\n><p style=\"line-height: 8rem; font-size: 24px;\">Now help him find all the food it needs. </p>",
-      "heading": "<p>Yay! You found the Capy 🦫</p>",
+      "name": "<p>Yay! You found my Capy 🦫</p\n><p style=\"line-height: 8rem; font-size: 24px;\">Now help him find all the food it needs. </p>",
+      "heading": "<p>Yay! You found my Capy 🦫</p>",
       "subText": " <p style=\"line-height: 1rem; font-size: 1rem;\">\n              He has been hungry since this time.\n            </p>\n            <p style=\"line-height: 2rem; font-size: 1rem;\">\n              Now help him navigate safely to his home :)\n            </p>",
       "customizeAssets": {
         "trex": {

@@ -1,12 +1,11 @@
 import { useSection } from "deco/hooks/useSection.ts";
 import Section404, { Motivation } from "./404Game.tsx";
-import { backgroundSvg } from "./imagesAndCss.tsx";
 
 export interface Props {
   /**
    * @format rich-text
    * @description The description of heading.
-   * @default Yay! You found the Capy 🦫!
+   * @default Yay! You found my Capy 🦫!
    */
   heading?: string;
   /**
@@ -111,19 +110,22 @@ export default function Section({
   return (
     <div
       id="it-works"
-      style="    display: flex;
+      style="display: flex;
     place-items: center;
     height: 100vh;">
       <div
         style={{
           position: "fixed",
-          width: 3000,
+          width: "100vw",
+          height: "100vh",
+          background: `url(${`https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/11683/4af06ae2-1a98-434e-80f2-ce0e5a7d73a5`})`,
+          backgroundSize: "cover",
           zIndex: 0,
           opacity: 0.2,
         }}
-        dangerouslySetInnerHTML={{
-          __html: backgroundSvg,
-        }}
+        // dangerouslySetInnerHTML={{
+        //   __html: backgroundSvg,
+        // }}
       />
       <div
         style={{ zIndex: 1, position: "relative", height: "fit-content" }}
