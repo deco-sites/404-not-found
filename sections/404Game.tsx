@@ -325,32 +325,7 @@ export default function Section({
   instructions = "Press 'Space' to jump your Capy and start the game.",
   gameProperties,
   customizeAssets,
-  motivationBehindTheProject = `
-  <p>Motivation behind - Find my Capy | 404 page game</p>
-            <br />
-            <p>
-              I wanted to explore the below things deco.cx
-              <li>
-                A fun and interactive game (Yes making a working game in deco is
-                hard :(
-              </li>
-              <li>
-                Make something innovative (in Open category) rather than a simple
-                boring static regular submission
-              </li>
-              <li>
-                Test if game assets and properties to be fully customizable (in deco admin)
-              </li>
-            </p>
-            <br />
-            <p>
-              Submitting this under the open category. I wanted to see whether I
-              can push the limits of deco's capabilities and create interactive
-              game website that can capture the keyboard events, mouse events, load game
-              assets and not just create a static site.
-            </p>
-            <br />
-            <p>Hope you like my Capy :)</p>`,
+  motivationBehindTheProject,
 }: Props) {
   /**
    * useSection is a nice hook for getting the HTMX link to render this section,
@@ -2714,7 +2689,43 @@ export default function Section({
           </div>
           <div class="text-sm">Powered by HTMX</div>
         </div>
-        <style>{`
+        <Motivation motivationBehindTheProject={motivationBehindTheProject} />
+      </div>
+    </div>
+  );
+}
+
+export const Motivation = ({
+  motivationBehindTheProject = `
+  <p>Motivation behind - Find my Capy | 404 page game</p>
+            <br />
+            <p>
+              I wanted to explore the below things deco.cx
+              <li>
+                A fun and interactive game (Yes making a working game in deco is
+                hard :(
+              </li>
+              <li>
+                Make something innovative (in Open category) rather than a simple
+                boring static regular submission
+              </li>
+              <li>
+                Test if game assets and properties to be fully customizable (in deco admin)
+              </li>
+            </p>
+            <br />
+            <p>
+              Submitting this under the open category. I wanted to see whether I
+              can push the limits of deco's capabilities and create interactive
+              game website that can capture the keyboard events, mouse events, load game
+              assets and not just create a static site.
+            </p>
+            <br />
+            <p>Hope you like my Capy :)</p>`,
+}) => {
+  return (
+    <>
+      <style>{`
         .info-button {
           position: fixed;
           bottom: 20px;
@@ -2743,8 +2754,8 @@ export default function Section({
           bottom: 125%; 
           left: 50%;
           margin-left: -352px;
-          font-family: Inter;
-          line-height: 1.4rem;
+       font-family: sans-serif, system-ui;
+          line-height: 1.6rem;
           font-size: 14px;
           width: 380px;
         }
@@ -2754,22 +2765,21 @@ export default function Section({
         }
 
         `}</style>
-        <button className="btn info-button">
-          {/* <FiInfo size={24} /> */}
-          <img
-            src="https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/11683/4049446a-5efb-4fab-883a-935d922ce2c5"
-            alt="info"
-            width="24"
-            height="24"
-          />
-          <span
-            className="hover-text"
-            dangerouslySetInnerHTML={{
-              __html: motivationBehindTheProject,
-            }}
-          />
-        </button>
-      </div>
-    </div>
+      <button className="btn info-button">
+        {/* <FiInfo size={24} /> */}
+        <img
+          src="https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/11683/4049446a-5efb-4fab-883a-935d922ce2c5"
+          alt="info"
+          width="24"
+          height="24"
+        />
+        <span
+          className="hover-text"
+          dangerouslySetInnerHTML={{
+            __html: motivationBehindTheProject,
+          }}
+        />
+      </button>
+    </>
   );
-}
+};

@@ -1,5 +1,5 @@
 import { useSection } from "deco/hooks/useSection.ts";
-import Section404 from "./404Game.tsx";
+import Section404, { Motivation } from "./404Game.tsx";
 import { backgroundSvg } from "./imagesAndCss.tsx";
 
 export interface Props {
@@ -96,7 +96,7 @@ export default function Section({
 
   const styleButton = `
   color: black; 
-  font-family: Inter;
+  font-family: sans-serif, system-ui;
   background: #04b85f45;
   border: 3px solid black;
   border-radius: 12px;
@@ -229,7 +229,7 @@ export default function Section({
             He should be in {PLACES.MOJAVE_DESERT} then
           </button>
         </div>
-        <img src={""} />
+        <Motivation />
         {/* <div class="text-sm">Powered by HTMX</div> */}
       </div>
     </div>
