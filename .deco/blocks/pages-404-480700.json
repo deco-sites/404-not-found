@@ -7,7 +7,7 @@
       "game": {},
       "name": "<p>Yay! You found the Capy 🦫</p\n><p style=\"line-height: 8rem; font-size: 24px;\">Now help him find all the food it needs. </p>",
       "heading": "<p>Yay! You found the Capy 🦫</p>",
-      "subText": "<p style=\"line-height: 1rem; font-size: 1rem;\">\n  He has been hungry since this time.\n</p>\n<p style=\"line-height: 2rem; font-size: 1rem;\">\n  Now help him navigate safely to his home :)\n</p>",
+      "subText": " <p style=\"line-height: 1rem; font-size: 1rem;\">\n              He has been hungry since this time.\n            </p>\n            <p style=\"line-height: 2rem; font-size: 1rem;\">\n              Now help him navigate safely to his home :)\n            </p>",
       "customizeAssets": {
         "trex": {
           "image": "https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/11683/78d05b4c-680b-436e-a397-a1dbda2d6be7",
@@ -18,12 +18,14 @@
           "image": "https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/11683/78d05b4c-680b-436e-a397-a1dbda2d6be7"
         },
         "characterSprite2x": {
-          "image": "https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/11683/4ae5657f-673c-4f78-92ee-90ea5e008b06"
+          "image": "https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/11683/4ae5657f-673c-4f78-92ee-90ea5e008b06",
+          "alt": "hello"
         }
       },
       "gameProperties": {
         "acceleration": 0.003
-      }
+      },
+      "instructions": "Press 'Space' to jump your Capy and start the game."
     }
   ],
   "seo": {

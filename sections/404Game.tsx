@@ -1,5 +1,5 @@
 import { useSection } from "deco/hooks/useSection.ts";
-import base64Images from "./imagesAndCss.tsx";
+import base64Images, { backgroundSvg } from "./imagesAndCss.tsx";
 import { dinoGameStyles } from "./imagesAndCss.tsx";
 // import { TRexGameLogic } from "./dino.ts";
 import { useScript } from "deco/hooks/useScript.ts";
@@ -7,28 +7,152 @@ import { useScript } from "deco/hooks/useScript.ts";
 import { ImageWidget } from "apps/admin/widgets.ts";
 import Image from "apps/website/components/Image.tsx";
 
+const imagesID = {
+  x1obstaclelarge: "1x-obstacle-large",
+  x1obstaclesmall: "1x-obstacle-small",
+  x1cloud: "1x-cloud",
+  x1text: "1x-text",
+  x1horizon: "1x-horizon",
+  x1trex: "1x-trex",
+  x1restart: "1x-restart",
+  x2obstaclelarge: "2x-obstacle-large",
+  x2obstaclesmall: "2x-obstacle-small",
+  x2cloud: "2x-cloud",
+  x2text: "2x-text",
+  x2horizon: "2x-horizon",
+  x2trex: "2x-trex",
+  x2restart: "2x-restart",
+  offlinesoundpress: "offline-sound-press",
+  offlinesoundhit: "offline-sound-hit",
+  offlinesoundreached: "offline-sound-reached",
+};
+
 interface Sprite {
   base64Sprite?: string;
   // image?: ImageWidget;
   alt?: string;
-  width?: number;
-  height?: number;
+  // width?: number;
+  // height?: number;
 }
 
+const dimension2x = {
+  x2: {
+    obstacleLarge: { width: 300, height: 100, id: imagesID.x2obstaclelarge },
+    obstacleSmall: {
+      width: 204,
+      height: 70,
+      id: imagesID.x2obstaclesmall,
+    },
+    gameText: {
+      width: 382,
+      height: 48,
+      id: imagesID.x2text,
+    },
+    cloud: {
+      width: 92,
+      height: 28,
+      id: imagesID.x2cloud,
+    },
+    horizon: {
+      width: 2400,
+      height: 24,
+      id: imagesID.x2horizon,
+    },
+    characterSprite: {
+      width: 528,
+      height: 94,
+      id: imagesID.x2trex,
+    },
+    restart: {
+      width: 72,
+      height: 64,
+      id: imagesID.x2restart,
+    },
+  },
+};
+
+const dimension1x = { x1: {} };
+Object.keys(dimension2x.x2).forEach((key) => {
+  const { width, height, id } = dimension2x.x2[key];
+  dimension1x.x1[key] = {
+    width: width / 2,
+    height: height / 2,
+    id: id?.replace("2x", "1x"),
+  };
+});
+
+console.log(dimension1x, dimension2x);
+
 interface Assets {
+  /**
+   * @format text
+   * @description The obstacleLarge is the trees/cactus that you see in the game. Obstacle sprite should be of dimension 150X50px (W x H) for 1x and 300x100px for 2x. You can create base64 string by using this tool - https://base64.guru/converter/encode/image/png
+   */
   obstacleLarge?: Sprite;
+  /**
+   * @format text
+   * @description The obstacleSmall includes smaller obstacles in the game. Sprite should be of dimension 102x35px (W x H) for 1x and 204x70px for 2x. You can create base64 string by using this tool - https://base64.guru/converter/encode/image/png
+   */
   obstacleSmall?: Sprite;
+  /**
+   * @format text
+   * @description The cloud sprite appears in the background. It should be of dimension 46x14px (W x H) for 1x and 92x28px for 2x. You can create base64 string by using this tool - https://base64.guru/converter/encode/image/png
+   */
   cloud?: Sprite;
+  /**
+   * @format text
+   * @description The gameText includes text elements like scores. Sprite should be of dimension 191x24px (W x H) for 1x and 382x48px for 2x. You can create base64 string by using this tool - https://base64.guru/converter/encode/image/png
+   */
   gameText?: Sprite;
+  /**
+   * @format text
+   * @description The horizon is the ground line sprite. It should be of dimension 1200x12px (W x H) for 1x and 2400x24px for 2x. You can create base64 string by using this tool - https://base64.guru/converter/encode/image/png
+   */
   horizon?: Sprite;
+  /**
+   * @format text
+   * @description The characterSprite is the main character of the game. Sprite should be of dimension 264x47px (W x H) for 1x and 528x94px for 2x. You can create base64 string by using this tool - https://base64.guru/converter/encode/image/png
+   */
   characterSprite?: Sprite;
+  /**
+   * @format text
+   * @description The restart button sprite. It should be of dimension 36x32px (W x H) for 1x and 72x64px for 2x. You can create base64 string by using this tool - https://base64.guru/converter/encode/image/png
+   */
   restart?: Sprite;
+  /**
+   * @format text
+   * @description The 2x version of obstacleLarge sprite for high-resolution displays. Dimension is 300x100px (W x H). You can create base64 string by using this tool - https://base64.guru/converter/encode/image/png
+   */
   obstacleLarge2x?: Sprite;
+  /**
+   * @format text
+   * @description The 2x version of obstacleSmall sprite for high-resolution displays. Dimension is 204x70px (W x H). You can create base64 string by using this tool - https://base64.guru/converter/encode/image/png
+   */
   obstacleSmall2x?: Sprite;
+  /**
+   * @format text
+   * @description The 2x version of cloud sprite for high-resolution displays. Dimension is 92x28px (W x H). You can create base64 string by using this tool - https://base64.guru/converter/encode/image/png
+   */
   cloud2x?: Sprite;
+  /**
+   * @format text
+   * @description The 2x version of gameText sprite for high-resolution displays. Dimension is 382x48px (W x H). You can create base64 string by using this tool - https://base64.guru/converter/encode/image/png
+   */
   gameText2x?: Sprite;
+  /**
+   * @format text
+   * @description The 2x version of horizon sprite for high-resolution displays. Dimension is 2400x24px (W x H). You can create base64 string by using this tool - https://base64.guru/converter/encode/image/png
+   */
   horizon2x?: Sprite;
+  /**
+   * @format text
+   * @description The 2x version of characterSprite for high-resolution displays. Dimension is 528x94px (W x H). You can create base64 string by using this tool - https://base64.guru/converter/encode/image/png
+   */
   characterSprite2x?: Sprite;
+  /**
+   * @format text
+   * @description The 2x version of restart button sprite for high-resolution displays. Dimension is 72x64px (W x H). You can create base64 string by using this tool - https://base64.guru/converter/encode/image/png
+   */
   restart2x?: Sprite;
 }
 
@@ -175,6 +299,7 @@ export interface Props {
   instructions?: string;
   gameProperties?: Game;
   customizeAssets?: Assets;
+  motivationBehindTheProject?: string;
   // acceleration?: number;
   // bgCloudSpeed?: number;
   // bottomPad?: number;
@@ -200,6 +325,32 @@ export default function Section({
   instructions = "Press 'Space' to jump your Capy and start the game.",
   gameProperties,
   customizeAssets,
+  motivationBehindTheProject = `
+  <p>Motivation behind - Find my Capy | 404 page game</p>
+            <br />
+            <p>
+              I wanted to explore the below things deco.cx
+              <li>
+                A fun and interactive game (Yes making a working game in deco is
+                hard :(
+              </li>
+              <li>
+                Make something innovative (in Open category) rather than a simple
+                boring static regular submission
+              </li>
+              <li>
+                Test if game assets and properties to be fully customizable (in deco admin)
+              </li>
+            </p>
+            <br />
+            <p>
+              Submitting this under the open category. I wanted to see whether I
+              can push the limits of deco's capabilities and create interactive
+              game website that can capture the keyboard events, mouse events, load game
+              assets and not just create a static site.
+            </p>
+            <br />
+            <p>Hope you like my Capy :)</p>`,
 }: Props) {
   /**
    * useSection is a nice hook for getting the HTMX link to render this section,
@@ -215,26 +366,6 @@ export default function Section({
     gameProperties,
     customizeAssets,
   });
-
-  const imagesID = {
-    x1obstaclelarge: "1x-obstacle-large",
-    x1obstaclesmall: "1x-obstacle-small",
-    x1cloud: "1x-cloud",
-    x1text: "1x-text",
-    x1horizon: "1x-horizon",
-    x1trex: "1x-trex",
-    x1restart: "1x-restart",
-    x2obstaclelarge: "2x-obstacle-large",
-    x2obstaclesmall: "2x-obstacle-small",
-    x2cloud: "2x-cloud",
-    x2text: "2x-text",
-    x2horizon: "2x-horizon",
-    x2trex: "2x-trex",
-    x2restart: "2x-restart",
-    offlinesoundpress: "offline-sound-press",
-    offlinesoundhit: "offline-sound-hit",
-    offlinesoundreached: "offline-sound-reached",
-  };
 
   const onLoad = (props) => {
     console.log("Window loaded", props);
@@ -303,7 +434,7 @@ export default function Section({
        * Default game width.
        * @const
        */
-      var DEFAULT_WIDTH = window.innerWidth - 20;
+      var DEFAULT_WIDTH = 600;
       /**
        * Frames per second.
        * @const
@@ -2352,99 +2483,184 @@ export default function Section({
     }
   };
 
-  const TCapy = `T-Capy`;
+  interface CharacterSpriteProps {
+    size: "1x" | "2x";
+    spriteName: string;
+  }
+
+  const CharacterSprite: React.FC<CharacterSpriteProps> = ({
+    size,
+    spriteName,
+  }) => {
+    const dimensions = {
+      "1x": dimension1x.x1,
+      "2x": dimension2x.x2,
+    };
+
+    const { height, width, id } = dimensions[size][spriteName];
+    console.log({ height, width, id });
+
+    return customizeAssets[spriteName] ? (
+      <Image
+        id={id}
+        src={
+          customizeAssets[`${spriteName}${size === "2x" ? "2x" : ""}`]
+            .base64Sprite || base64Images[id]
+        }
+        // alt={customizeAssets[spriteName].alt || "capybara"}
+        height={height}
+        width={width}
+        loading={""}
+      />
+    ) : (
+      <img id={id} src={base64Images[id]} jstcache="0" />
+    );
+  };
 
   return (
-    <div
-      id="it-works"
-      class="container py-10 flex flex-col h-screen w-full items-center justify-center gap-16">
+    <div id="it-works" style="background: #fef6ce;">
+      {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+        rel="stylesheet"></link> */}
+      {/* <style>{`*{
+      font-family: Press Start 2P, Inter, system-ui;
+  
+  }`}</style> */}
       <div
-        class="leading-10 text-6xl"
-        style="line-height: 5rem;"
-        dangerouslySetInnerHTML={{
-          __html: heading,
+        style={{
+          position: "fixed",
+          width: 3000,
+          zIndex: 0,
+          opacity: 0.2,
         }}
-      />{" "}
-      <div
-        class="leading-10 text-6xl"
-        style={"width: 96%;text-align: center;"}
         dangerouslySetInnerHTML={{
-          __html: subText,
+          __html: backgroundSvg,
         }}
       />
-      <script
-        type="module"
-        dangerouslySetInnerHTML={{
-          __html: useScript(onLoad, {
-            heading,
-            instructions,
-            subText,
-            game: {
-              acceleration: 0.001,
-              bgCloudSpeed: 0.2,
-              bottomPad: 10,
-              clearTime: 3000,
-              cloudFrequency: 0.5,
-              gameoverClearTime: 750,
-              gapCoefficient: 0.6,
-              gravity: 0.6,
-              initialJumpVelocity: 12,
-              maxClouds: 6,
-              maxObstacleLength: 3,
-              maxSpeed: 12,
-              minJumpHeight: 35,
-              mobileSpeedCoefficient: 1.2,
-              resourceTemplateId: "audio-resources",
-              speed: 6,
-              speedDropCoefficient: 3,
-              ...gameProperties,
-            },
-          }),
-        }}
-      />
-      <div class="flex flex-col items-center justify-center gap-2">
-        <div class="flex items-center gap-4">
-          {/* <button
-            hx-target="#it-works"
-            hx-swap="outerHTML"
-            hx-get={downLink} // htmx link for this section with the down vote props
-            class="btn btn-sm btn-circle btn-outline no-animation">
-            <span class="inline [.htmx-request_&]:hidden">-</span>
-            <span class="loading loading-spinner hidden [.htmx-request_&]:inline" />
-          </button>
-          <span>{count}</span> */}
-          {/* <button
-            hx-target="#it-works"
-            hx-swap="outerHTML"
-            hx-get={upLink} // htmx link for this section with the up vote props
-            class="btn btn-sm btn-circle btn-outline no-animation">
-            <span class="inline [.htmx-request_&]:hidden">+</span>
-            <span class="loading loading-spinner hidden [.htmx-request_&]:inline" />
-          </button> */}
-
-          {/* <div
+      <div
+        style={{ zIndex: 1, position: "relative", height: "fit-content" }}
+        class="container py-10 flex flex-col h-screen w-full items-center justify-center gap-16">
+        <div
+          class="leading-10 text-6xl"
+          style="line-height: 5rem;text-align: center;
+    font-size: 40px;"
+          dangerouslySetInnerHTML={{
+            __html: heading,
+          }}
+        />{" "}
+        {/* <svg
+        width="1920"
+        height="1080"
+        viewBox="0 0 1920 1080"
+        xmlns="http://www.w3.org/2000/svg">
+        <rect width="1920" height="1080" fill="#df6688"></rect>
+        <path
+          d="M 0,1080 C 0,1080 0,90 0,90 C 43.01128058377451,83.07235861868149 86.02256116754901,76.14471723736298 132,75 C 177.97743883245099,73.85528276263702 226.92103591357846,78.4934896692296 274,77 C 321.07896408642154,75.5065103307704 366.2932951781371,67.88132408571866 404,64 C 441.7067048218629,60.11867591428135 471.9057833738732,59.98121398789577 506,61 C 540.0942166261268,62.01878601210423 578.0835713263701,64.19381996269829 629,77 C 679.9164286736299,89.80618003730171 743.7599313206467,113.24350616131113 789,116 C 834.2400686793533,118.75649383868887 860.8767033910432,100.83215539205719 904,95 C 947.1232966089568,89.16784460794281 1006.7332551151808,95.42787227046009 1042,106 C 1077.2667448848192,116.57212772953991 1088.190276148233,131.4563555261024 1132,122 C 1175.809723851767,112.54364447389759 1252.5056402918872,78.7467056251302 1300,61 C 1347.4943597081128,43.25329437486979 1365.7871626842182,41.556821973376714 1399,59 C 1432.2128373157818,76.44317802662329 1480.3457089712406,113.02600648136294 1533,115 C 1585.6542910287594,116.97399351863706 1642.8300014308197,84.3391521011715 1681,78 C 1719.1699985691803,71.6608478988285 1738.33428530548,91.61738511395099 1775,98 C 1811.66571469452,104.38261488604901 1865.83285734726,97.1913074430245 1920,90 C 1920,90 1920,1080 1920,1080 Z"
+          fill="#3d1053"
+          opacity="0.049999999999999996"></path>
+        <path
+          d="M 0,1080 C 0,1080 0,180 0,180 C 33.04207029364669,172.9345142640417 66.08414058729338,165.86902852808342 108,169 C 149.91585941270662,172.13097147191658 200.7055079444732,185.458400151708 244,180 C 287.2944920555268,174.541599848292 323.09382763481375,150.29737086508462 368,159 C 412.90617236518625,167.70262913491538 466.9191815162719,209.3521163879535 515,213 C 563.0808184837281,216.6478836120465 605.2294463000984,182.29416358310155 650,181 C 694.7705536999016,179.70583641689845 742.1630332833345,211.4712292796404 782,213 C 821.8369667166655,214.5287707203596 854.1184205665636,185.82091929833692 898,169 C 941.8815794334364,152.17908070166308 997.3632844504111,147.24509352701205 1034,157 C 1070.6367155495889,166.75490647298795 1088.4284416317919,191.198706593615 1130,193 C 1171.5715583682081,194.801293406385 1236.9229490224213,173.960080098528 1289,174 C 1341.0770509775787,174.039919901472 1379.8797622785223,194.9609730122729 1415,197 C 1450.1202377214777,199.0390269877271 1481.558001863489,182.1960278523805 1526,167 C 1570.441998136511,151.8039721476195 1627.888230267522,138.25491557820527 1670,148 C 1712.111769732478,157.74508442179473 1738.889077066422,190.78430983479848 1778,200 C 1817.110922933578,209.21569016520152 1868.555461466789,194.60784508260076 1920,180 C 1920,180 1920,1080 1920,1080 Z"
+          fill="#3d1053"
+          opacity="0.09999999999999999"></path>
+        <path
+          d="M 0,1080 C 0,1080 0,270 0,270 C 40.468814667295575,278.7763820795632 80.93762933459115,287.5527641591263 123,283 C 165.06237066540885,278.4472358408737 208.71829732893093,260.5653254430578 256,265 C 303.28170267106907,269.4346745569422 354.18918134968527,296.18593406864244 401,291 C 447.81081865031473,285.81406593135756 490.524977272328,248.69093828237266 528,244 C 565.475022727672,239.30906171762734 597.710909561003,267.05031280186705 634,282 C 670.289090438997,296.94968719813295 710.6313844836601,299.1078105101592 760,289 C 809.3686155163399,278.8921894898408 867.763552504357,256.51844515749633 913,259 C 958.236447495643,261.48155484250367 990.3144054989123,288.8184088598556 1028,302 C 1065.6855945010877,315.1815911401444 1108.978825499994,314.2079194030811 1155,299 C 1201.021174500006,283.7920805969189 1249.770292501112,254.34991352781987 1288,255 C 1326.229707498888,255.65008647218013 1353.9400044955585,286.3924264856395 1397,283 C 1440.0599955044415,279.6075735143605 1498.4696895166546,242.0803805296224 1550,242 C 1601.5303104833454,241.9196194703776 1646.1812374378237,279.2860513958709 1680,282 C 1713.8187625621763,284.7139486041291 1736.8053607320503,252.775413886894 1775,245 C 1813.1946392679497,237.224586113106 1866.5973196339748,253.612293056553 1920,270 C 1920,270 1920,1080 1920,1080 Z"
+          fill="#3d1053"
+          opacity="0.15"></path>
+        <path
+          d="M 0,1080 C 0,1080 0,360 0,360 C 37.43318559148426,345.2295054132685 74.86637118296852,330.45901082653694 113,332 C 151.13362881703148,333.54098917346306 189.96770085961015,351.39346210712074 236,365 C 282.03229914038985,378.60653789287926 335.262825378591,387.9671407449802 388,382 C 440.737174621409,376.0328592550198 492.98099762602567,354.73797491295846 529,346 C 565.0190023739743,337.26202508704154 584.8131841173062,341.080959603186 626,338 C 667.1868158826938,334.919040396814 729.7662659047495,324.9381866742977 784,330 C 838.2337340952505,335.0618133257023 884.1217522636963,355.1662936996232 919,358 C 953.8782477363037,360.8337063003768 977.7467250404659,346.3966385272094 1013,345 C 1048.253274959534,343.6033614727906 1094.8913475744407,355.2471521915391 1143,370 C 1191.1086524255593,384.7528478084609 1240.687884661771,402.61475270663425 1285,392 C 1329.312115338229,381.38524729336575 1368.3571137784759,342.293836981924 1413,337 C 1457.6428862215241,331.706163018076 1507.883660224326,360.20989936566986 1555,362 C 1602.116339775674,363.79010063433014 1646.1082453242202,338.8665655553966 1687,343 C 1727.8917546757798,347.1334344446034 1765.683358478794,380.32383841274384 1804,388 C 1842.316641521206,395.67616158725616 1881.1583207606031,377.8380807936281 1920,360 C 1920,360 1920,1080 1920,1080 Z"
+          fill="#3d1053"
+          opacity="0.19999999999999998"></path>
+        <path
+          d="M 0,1080 C 0,1080 0,450 0,450 C 44.21387743738566,446.08152290350085 88.42775487477132,442.16304580700177 135,449 C 181.57224512522868,455.83695419299823 230.5028579383004,473.42933967549374 274,468 C 317.4971420616996,462.57066032450626 355.56081337202716,434.11959549102335 395,429 C 434.43918662797284,423.88040450897665 475.2538885735912,442.09227836041276 519,454 C 562.7461114264088,465.90772163958724 609.4236323336079,471.5112910673255 651,473 C 692.5763676663921,474.4887089326745 729.0515820919773,471.86255737028546 766,463 C 802.9484179080227,454.13744262971454 840.3700392984828,439.03847945153274 889,441 C 937.6299607015172,442.96152054846726 997.468260714091,461.9835248235836 1046,460 C 1094.531739285909,458.0164751764164 1131.7569178451533,435.02742125413295 1164,439 C 1196.2430821548467,442.97257874586705 1223.5040679052954,473.9067901598844 1264,479 C 1304.4959320947046,484.0932098401156 1358.2268105336639,463.34541810632925 1400,453 C 1441.7731894663361,442.65458189367075 1471.588689960049,442.71153741479833 1519,450 C 1566.411310039951,457.28846258520167 1631.418429626141,471.8084322344774 1676,470 C 1720.581570373859,468.1915677655226 1744.7375915353882,450.05473364729215 1782,444 C 1819.2624084646118,437.94526635270785 1869.631204232306,443.97263317635395 1920,450 C 1920,450 1920,1080 1920,1080 Z"
+          fill="#3d1053"
+          opacity="0.24999999999999997"></path>
+        <path
+          d="M 0,1080 C 0,1080 0,540 0,540 C 55.249226008608204,547.8673798402274 110.49845201721641,555.7347596804548 149,558 C 187.5015479827836,560.2652403195452 209.25541793974259,556.9283411184082 250,552 C 290.7445820602574,547.0716588815918 350.47987622381316,540.5518758459124 391,547 C 431.52012377618684,553.4481241540876 452.8250771650049,572.8641554979424 489,564 C 525.1749228349951,555.1358445020576 576.2198151161668,517.991502162318 623,519 C 669.7801848838332,520.008497837682 712.2956623703278,559.1698358527857 764,556 C 815.7043376296722,552.8301641472143 876.5975354025223,507.32915442653905 917,510 C 957.4024645974777,512.670845573461 977.3141960195824,563.5135464410581 1017,570 C 1056.6858039804176,576.4864535589419 1116.1456805191478,538.6166598092286 1164,529 C 1211.8543194808522,519.3833401907714 1248.1030819038256,538.0198143220274 1287,550 C 1325.8969180961744,561.9801856779726 1367.4419918655497,567.3040829026612 1413,568 C 1458.5580081344503,568.6959170973388 1508.1289506339765,564.7638540673279 1552,555 C 1595.8710493660235,545.2361459326721 1634.042205598545,529.6405008280271 1676,523 C 1717.957794401455,516.3594991719729 1763.702226971844,518.6741426205637 1805,523 C 1846.297773028156,527.3258573794363 1883.148886514078,533.6629286897182 1920,540 C 1920,540 1920,1080 1920,1080 Z"
+          fill="#3d1053"
+          opacity="0.3"></path>
+        <path
+          d="M 0,1080 C 0,1080 0,630 0,630 C 35.598321992887904,643.611954881024 71.19664398577581,657.2239097620479 110,659 C 148.8033560142242,660.7760902379521 190.81174604978474,650.716315832832 236,642 C 281.18825395021526,633.283684167168 329.55637181508524,625.9108269066244 376,618 C 422.44362818491476,610.0891730933756 466.9627666898747,601.6403765406702 512,601 C 557.0372333101253,600.3596234593298 602.5925614254161,607.5276669306951 638,612 C 673.4074385745839,616.4723330693049 698.666987608461,618.2489557365492 749,628 C 799.333012391539,637.7510442634508 874.7394881407398,655.4765101231077 915,658 C 955.2605118592602,660.5234898768923 960.3750598285801,647.8450037710205 1004,639 C 1047.62494017142,630.1549962289795 1129.76027254494,625.1434747928107 1174,616 C 1218.23972745506,606.8565252071893 1224.5838499916595,593.5810970577368 1263,598 C 1301.4161500083405,602.4189029422632 1371.904327488423,624.5321369762418 1420,641 C 1468.095672511577,657.4678630237582 1493.7988400546494,668.290355037296 1533,661 C 1572.2011599453506,653.709644962704 1624.900312292979,628.3064428745741 1666,629 C 1707.099687707021,629.6935571254259 1736.5999107734347,656.4838734644072 1777,661 C 1817.4000892265653,665.5161265355928 1868.7000446132827,647.7580632677964 1920,630 C 1920,630 1920,1080 1920,1080 Z"
+          fill="#3d1053"
+          opacity="0.35"></path>
+        <path
+          d="M 0,1080 C 0,1080 0,720 0,720 C 33.38048866491728,722.0119787234576 66.76097732983456,724.0239574469152 115,721 C 163.23902267016544,717.9760425530848 226.33657934557903,709.9161489357964 275,708 C 323.663420654421,706.0838510642036 357.8927052878493,710.3114468098992 394,716 C 430.1072947121507,721.6885531901008 468.09259950302396,728.8380638246067 504,729 C 539.907400496976,729.1619361753933 573.7368967000547,722.3362978916743 618,718 C 662.2631032999453,713.6637021083257 716.959813696757,711.8167446086959 767,711 C 817.040186303243,710.1832553913041 862.4238485129171,710.3967236735422 908,718 C 953.5761514870829,725.6032763264578 999.3447922515743,740.5963606971357 1041,745 C 1082.6552077484257,749.4036393028643 1120.196982480786,743.2178335379156 1164,738 C 1207.803017519214,732.7821664620844 1257.8672778252817,728.5323051512025 1292,731 C 1326.1327221747183,733.4676948487975 1344.3339062180873,742.6529458572745 1389,745 C 1433.6660937819127,747.3470541427255 1504.7970973023682,742.8559114196996 1552,741 C 1599.2029026976318,739.1440885803004 1622.4777045724393,739.9234084639271 1663,734 C 1703.5222954275607,728.0765915360729 1761.2920844078744,715.4504547245922 1807,712 C 1852.7079155921256,708.5495452754078 1886.3539577960628,714.2747726377039 1920,720 C 1920,720 1920,1080 1920,1080 Z"
+          fill="#3d1053"
+          opacity="0.39999999999999997"></path>
+        <path
+          d="M 0,1080 C 0,1080 0,810 0,810 C 29.731921518047372,821.948638961704 59.463843036094744,833.897277923408 109,832 C 158.53615696390526,830.102722076592 227.87654937366835,814.359527268072 272,799 C 316.12345062633165,783.640472731928 335.029959469232,768.6646130043041 376,776 C 416.970040530768,783.3353869956959 480.0036127494037,812.9820207147117 524,814 C 567.9963872505963,815.0179792852883 592.9555895331533,787.4073041368493 628,780 C 663.0444104668467,772.5926958631507 708.1740291179829,785.3887627378908 761,789 C 813.8259708820171,792.6112372621092 874.3482939949153,787.037644911587 918,789 C 961.6517060050847,790.962355088413 988.4327949023561,800.4606576157612 1027,807 C 1065.5672050976439,813.5393423842388 1115.9205263956599,817.1197246253682 1156,822 C 1196.0794736043401,826.8802753746318 1225.8850995150044,833.0604438827659 1272,827 C 1318.1149004849956,820.9395561172341 1380.539075544322,802.6384998435683 1422,798 C 1463.460924455678,793.3615001564317 1483.9585983077075,802.3855567429611 1528,804 C 1572.0414016922925,805.6144432570389 1639.6265312248483,799.8192731845875 1685,794 C 1730.3734687751517,788.1807268154125 1753.5352767929003,782.3373505186893 1789,785 C 1824.4647232070997,787.6626494813107 1872.2323616035499,798.8313247406554 1920,810 C 1920,810 1920,1080 1920,1080 Z"
+          fill="#3d1053"
+          opacity="0.44999999999999996"></path>
+        <path
+          d="M 0,1080 C 0,1080 0,900 0,900 C 32.479010155626185,903.5766587138642 64.95802031125237,907.1533174277282 115,910 C 165.04197968874763,912.8466825722718 232.64692891061668,914.9633890029514 274,916 C 315.3530710893833,917.0366109970486 330.45426404628097,916.9931265604665 363,916 C 395.54573595371903,915.0068734395335 445.53601490425956,913.0641047551825 496,903 C 546.4639850957404,892.9358952448175 597.4016763366812,874.7504544188031 637,877 C 676.5983236633188,879.2495455811969 704.8572797490154,901.934077569605 749,903 C 793.1427202509846,904.065922430395 853.1692046672568,883.513235302776 896,889 C 938.8307953327432,894.486764697224 964.4659015819575,926.0129812192911 1010,931 C 1055.5340984180425,935.9870187807089 1120.967189004914,914.434839820059 1169,908 C 1217.032810995086,901.565160179941 1247.6653423983873,910.2476595004725 1289,913 C 1330.3346576016127,915.7523404995275 1382.3714414015371,912.5745221780503 1422,912 C 1461.6285585984629,911.4254778219497 1488.8488919954646,913.4542517873266 1524,907 C 1559.1511080045354,900.5457482126734 1602.2329906166055,885.6084706726429 1653,877 C 1703.7670093833945,868.3915293273571 1762.2191455381128,866.111865522102 1808,871 C 1853.7808544618872,875.888134477898 1886.8904272309437,887.944067238949 1920,900 C 1920,900 1920,1080 1920,1080 Z"
+          fill="#3d1053"
+          opacity="0.49999999999999994"></path>
+        <path
+          d="M 0,1080 C 0,1080 0,990 0,990 C 37.701111635212584,994.0210956794033 75.40222327042517,998.0421913588065 116,990 C 156.59777672957483,981.9578086411935 200.09221855351188,961.8523302441773 249,966 C 297.9077814464881,970.1476697558227 352.22890251552735,998.5484876644842 401,995 C 449.77109748447265,991.4515123355158 492.9921713843786,955.9537190978854 534,962 C 575.0078286156214,968.0462809021146 613.8024119469578,1015.636635943975 653,1017 C 692.1975880530422,1018.363364056025 731.7981808277898,973.4997371262155 777,964 C 822.2018191722102,954.5002628737845 873.0048647418831,980.3644155511633 909,994 C 944.9951352581169,1007.6355844488367 966.1823602046779,1009.0426006691308 1004,1008 C 1041.817639795322,1006.9573993308692 1096.2656944394048,1003.4651817723135 1141,1004 C 1185.7343055605952,1004.5348182276865 1220.754862037702,1009.0966722416156 1264,1002 C 1307.245137962298,994.9033277583844 1358.714857409787,976.1481292612245 1401,971 C 1443.285142590213,965.8518707387755 1476.38570832315,974.3108107134863 1519,987 C 1561.61429167685,999.6891892865137 1613.7423092976135,1016.6086278848304 1657,1021 C 1700.2576907023865,1025.3913721151696 1734.645054486396,1017.2546777471912 1777,1010 C 1819.354945513604,1002.7453222528088 1869.677472756802,996.3726611264044 1920,990 C 1920,990 1920,1080 1920,1080 Z"
+          fill="#3d1053"
+          opacity="0.5499999999999999"></path>
+      </svg> */}
+        <div
+          class="leading-10 text-6xl"
+          style={"width: 96%;text-align: center;"}
+          dangerouslySetInnerHTML={{
+            __html: subText,
+          }}
+        />
+        <script
+          type="module"
+          dangerouslySetInnerHTML={{
+            __html: useScript(onLoad, {
+              heading,
+              instructions,
+              subText,
+              game: {
+                acceleration: 0.001,
+                bgCloudSpeed: 0.2,
+                bottomPad: 10,
+                clearTime: 3000,
+                cloudFrequency: 0.5,
+                gameoverClearTime: 750,
+                gapCoefficient: 0.6,
+                gravity: 0.6,
+                initialJumpVelocity: 12,
+                maxClouds: 6,
+                maxObstacleLength: 3,
+                maxSpeed: 12,
+                minJumpHeight: 35,
+                mobileSpeedCoefficient: 1.2,
+                resourceTemplateId: "audio-resources",
+                speed: 6,
+                speedDropCoefficient: 3,
+                ...gameProperties,
+              },
+            }),
+          }}
+        />
+        <div class="flex flex-col items-center justify-center gap-2">
+          <div class="flex items-center gap-4">
+            {/* <div
             style="width: 96%;text-align: center;"
             class="leading-10 text-6xl">
             <p style="line-height: 1rem; font-size: 1rem;">
               He has been hungry since this time.
             </p>
             <p style="line-height: 2rem; font-size: 1rem;">
-              Now help him collect all the food he wants :)
+              Now help him navigate safely to his home :)
             </p>
           </div> */}
-        </div>
-        {/* <-- TCapy -->  */}
-        <style>{dinoGameStyles}</style>
-        <div>
-          <div id="main-frame-error" class="interstitial-wrapper" jstcache="0">
-            {/* <div
-              class="onlyforchrome"
-              style="font-size: 30px; text-align: center; font-family: Helvetica">
-              {TCapy}
-            </div> */}
+          </div>
+          {/* <-- TCapy -->  */}
+          <style>{dinoGameStyles}</style>
+          <div>
             <div
-              class="onlyforchrome"
-              style="
+              id="main-frame-error"
+              class="interstitial-wrapper"
+              jstcache="0">
+              <div
+                class="onlyforchrome"
+                style="
                 margin-top: 5px;
                 text-align: center;
                 color: #8a8a8a;
@@ -2452,135 +2668,103 @@ export default function Section({
                 font-size: 0.8em;
                 line-height: 1.2em;
               ">
-              {/* <strong>{TCapy} game</strong>
-              from Google Chrome offline mode ripped
-              <br /> */}
-              {instructions}
-            </div>
-
-            <div
-              id="main-frame-notchrome"
-              style="display: none; margin-top: 50px">
-              Sorry, this game only runs on the Google Chrome!
-            </div>
-            <div id="offline-resources" jstcache="0">
-              <div id="offline-resources-1x" jstcache="0">
-                <img
-                  id={imagesID.x1obstaclelarge}
-                  src={base64Images[imagesID.x1obstaclelarge]}
-                  jstcache="0"
-                />
-                <img
-                  id={imagesID.x1obstaclesmall}
-                  src={base64Images[imagesID.x1obstaclesmall]}
-                  jstcache="0"
-                />
-                <img
-                  id={imagesID.x1cloud}
-                  src={base64Images[imagesID.x1cloud]}
-                  jstcache="0"
-                />
-                <img
-                  id={imagesID.x1text}
-                  src={base64Images[imagesID.x1text]}
-                  jstcache="0"
-                />
-                <img
-                  id={imagesID.x1horizon}
-                  src={base64Images[imagesID.x1horizon]}
-                  jstcache="0"
-                />
-                {/* <img
-                  id={imagesID.x1trex}
-                  src={base64Images[imagesID.x1trex]}
-                  jstcache="0"
-                /> */}
-                {customizeAssets?.characterSprite && (
-                  <Image
-                    id={imagesID.x1trex}
-                    src={
-                      customizeAssets?.characterSprite?.base64Sprite ||
-                      base64Images[imagesID.x1trex]
-                      // ||
-                      // "https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/11683/78d05b4c-680b-436e-a397-a1dbda2d6be7"
-                    }
-                    alt={customizeAssets?.characterSprite?.alt || "capybara"}
-                    height={customizeAssets?.characterSprite?.height || 47}
-                    width={customizeAssets?.characterSprite?.width || 264}
-                  />
-                )}
-                <img
-                  id={imagesID.x1restart}
-                  src={base64Images[imagesID.x1restart]}
-                  jstcache="0"
-                />
+                {instructions}
               </div>
-              <div id="offline-resources-2x" jstcache="0">
-                <img
-                  id={imagesID.x2obstaclelarge}
-                  src={base64Images[imagesID.x2obstaclelarge]}
-                  jstcache="0"
-                />
-                <img
-                  id={imagesID.x2obstaclesmall}
-                  src={base64Images[imagesID.x2obstaclesmall]}
-                  jstcache="0"
-                />
-                <img
-                  id={imagesID.x2cloud}
-                  src={base64Images[imagesID.x2cloud]}
-                  jstcache="0"
-                />
-                <img
-                  id={imagesID.x2text}
-                  src={base64Images[imagesID.x2text]}
-                  jstcache="0"
-                />
-                <img
-                  id={imagesID.x2horizon}
-                  src={base64Images[imagesID.x2horizon]}
-                  jstcache="0"
-                />
-                <img
-                  id={imagesID.x2trex}
-                  src={base64Images[imagesID.x2trex]}
-                  jstcache="0"
-                />
-                {customizeAssets?.characterSprite2x && (
-                  <Image
-                    id={imagesID.x2trex}
-                    src={
-                      customizeAssets?.characterSprite2x?.base64Sprite ||
-                      base64Images[imagesID.x2trex]
-                      // ||
-                      // "https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/11683/78d05b4c-680b-436e-a397-a1dbda2d6be7"
-                    }
-                    alt={customizeAssets?.characterSprite2x?.alt || "capybara"}
-                    height={customizeAssets?.characterSprite2x?.height || 94}
-                    width={customizeAssets?.characterSprite2x?.width || 528}
-                  />
-                )}
-                <img
-                  id={imagesID.x2restart}
-                  src={base64Images[imagesID.x2restart]}
-                  jstcache="0"
-                />
+              <div
+                id="main-frame-notchrome"
+                style="display: none; margin-top: 50px">
+                Sorry, this game only runs on the Google Chrome!
               </div>
-              <template id="audio-resources" jstcache="0">
-                <audio
-                  id={imagesID.offlinesoundpress}
-                  src={base64Images[imagesID.offlinesoundpress]}></audio>
-                <audio
-                  id={imagesID.offlinesoundhit}
-                  src={base64Images[imagesID.offlinesoundhit]}></audio>
-                <audio
-                  id={imagesID.offlinesoundreached}
-                  src={base64Images[imagesID.offlinesoundreached]}></audio>
-              </template>
+              <div id="offline-resources" jstcache="0">
+                <div id="offline-resources-1x" jstcache="0">
+                  <CharacterSprite size={"1x"} spriteName={"obstacleLarge"} />
+                  <CharacterSprite size={"1x"} spriteName={"obstacleSmall"} />
+                  <CharacterSprite size={"1x"} spriteName={"gameText"} />
+                  <CharacterSprite size={"1x"} spriteName={"cloud"} />
+                  <CharacterSprite size={"1x"} spriteName={"horizon"} />
+                  <CharacterSprite size={"1x"} spriteName={"characterSprite"} />
+                  <CharacterSprite size={"1x"} spriteName={"restart"} />
+                </div>
+                <div id="offline-resources-2x" jstcache="0">
+                  <CharacterSprite size={"2x"} spriteName={"obstacleLarge"} />
+                  <CharacterSprite size={"2x"} spriteName={"obstacleSmall"} />
+                  <CharacterSprite size={"2x"} spriteName={"gameText"} />
+                  <CharacterSprite size={"2x"} spriteName={"cloud"} />
+                  <CharacterSprite size={"2x"} spriteName={"horizon"} />
+                  <CharacterSprite size={"2x"} spriteName={"characterSprite"} />
+                  <CharacterSprite size={"2x"} spriteName={"restart"} />
+                </div>
+                <template id="audio-resources" jstcache="0">
+                  <audio
+                    id={imagesID.offlinesoundpress}
+                    src={base64Images[imagesID.offlinesoundpress]}></audio>
+                  <audio
+                    id={imagesID.offlinesoundhit}
+                    src={base64Images[imagesID.offlinesoundhit]}></audio>
+                  <audio
+                    id={imagesID.offlinesoundreached}
+                    src={base64Images[imagesID.offlinesoundreached]}></audio>
+                </template>
+              </div>
             </div>
           </div>
+          <div class="text-sm">Powered by HTMX</div>
         </div>
-        <div class="text-sm">Powered by HTMX</div>
+        <style>{`
+        .info-button {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background-color: #4CAF50; /* Green */
+          border: none;
+          color: white;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+           border-radius: 16px;
+        }
+
+        .hover-text {
+          display: none;
+          position: absolute;
+          background-color:  #4CAF50;
+          color: #fff;
+          text-align: left;
+          border-radius: 12px;
+          padding: 25px;
+          z-index: 1;
+          bottom: 125%; 
+          left: 50%;
+          margin-left: -352px;
+          font-family: Inter;
+          line-height: 1.4rem;
+          font-size: 14px;
+          width: 380px;
+        }
+
+        .info-button:hover .hover-text {
+          display: block;
+        }
+
+        `}</style>
+        <button className="btn info-button">
+          {/* <FiInfo size={24} /> */}
+          <img
+            src="https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/11683/4049446a-5efb-4fab-883a-935d922ce2c5"
+            alt="info"
+            width="24"
+            height="24"
+          />
+          <span
+            className="hover-text"
+            dangerouslySetInnerHTML={{
+              __html: motivationBehindTheProject,
+            }}
+          />
+        </button>
       </div>
     </div>
   );

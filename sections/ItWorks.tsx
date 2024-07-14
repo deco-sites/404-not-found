@@ -1,5 +1,6 @@
 import { useSection } from "deco/hooks/useSection.ts";
 import Section404 from "./404Game.tsx";
+import { backgroundSvg } from "./imagesAndCss.tsx";
 
 export interface Props {
   /**
@@ -37,7 +38,7 @@ export default function Section({
 }: Props) {
   const propLink = (place) => {
     return {
-      heading: `Oops! Capy 🦫 is not here in ${place}`,
+      heading: `Oops! 404 Capy 🦫 not found in ${place}`,
       subText: "Try searching 🔎 him in another place.",
       place: place,
     };
@@ -93,112 +94,140 @@ export default function Section({
     props: propLink(PLACES.MOJAVE_DESERT),
   });
 
+  const styleButton = `
+  color: black; 
+  font-family: Inter;
+  background: #04b85f45;
+  border: 3px solid black;
+  border-radius: 12px;
+  text-align: left;
+  width: 100%;
+  height: 90px;
+  line-height: 1.4rem;
+  flex:1;
+  min-width: 200px;
+  `;
+
   return (
-    <div
-      id="it-works"
-      class="container py-10 flex flex-col h-screen w-full items-center justify-center gap-16">
+    <div id="it-works">
       <div
-        class="leading-10 text-6xl"
-        style="line-height: 5rem;"
+        style={{
+          position: "fixed",
+          width: 3000,
+          zIndex: 0,
+          opacity: 0.2,
+        }}
         dangerouslySetInnerHTML={{
-          __html: heading,
+          __html: backgroundSvg,
         }}
       />
       <div
-        class="leading-10 text-xl"
-        dangerouslySetInnerHTML={{
-          __html: subText,
-        }}
-      />
-      <div
-        style="display: flex;
-    flex-flow: row wrap;
-    gap: 20px;
-    padding: 20px;
-    justify-content: center;
-    align-items: center;">
-        <button
-          hx-target="#it-works"
-          hx-swap="outerHTML"
-          style="color: white; background: #2FD080;"
-          hx-get={place1}
-          class="btn">
-          Search in {PLACES.AMAZON_JUNGLE}
-        </button>
-        <button
-          hx-target="#it-works"
-          hx-swap="outerHTML"
-          style="color: white; background: #2FD080;"
-          hx-get={place2}
-          class="btn">
-          He might be in {PLACES.GREAT_BARRIER_REEF}
-        </button>
-        <button
-          hx-target="#it-works"
-          hx-swap="outerHTML"
-          style="color: white; background: #2FD080;"
-          hx-get={place3}
-          class="btn">
-          He must be in {PLACES.HIMALAYAS}
-        </button>
-        <button
-          hx-target="#it-works"
-          hx-swap="outerHTML"
-          style="color: white; background: #2FD080;"
-          hx-get={place4}
-          class="btn">
-          Please be here in {PLACES.SERENGETI_PLAINS}
-        </button>
-        <button
-          hx-target="#it-works"
-          hx-swap="outerHTML"
-          style="color: white; background: #2FD080;"
-          hx-get={place5}
-          class="btn">
-          Surely he is here in {PLACES.DEATH_VALLEY}
-        </button>
-        <button
-          hx-target="#it-works"
-          hx-swap="outerHTML"
-          style="color: white; background: #2FD080;"
-          hx-get={place7}
-          class="btn">
-          Maybe he is in {PLACES.SIBERIAN_TUNDRA}
-        </button>
-        <a
-          href="/sahara-desert"
-          target="_self"
-          class="btn"
-          style="color: white; background: #2FD080;">
-          He could be in {PLACES.SAHARA_DESERT}
-        </a>
-        <button
-          hx-target="#it-works"
-          hx-swap="outerHTML"
-          style="color: white; background: #2FD080;"
-          hx-get={place8}
-          class="btn">
-          Hopefully he should be in {PLACES.ROCKY_MOUNTAINS}
-        </button>
-        <button
-          hx-target="#it-works"
-          hx-swap="outerHTML"
-          style="color: white; background: #2FD080;"
-          hx-get={place9}
-          class="btn">
-          Definitely he is in {PLACES.GRAND_CANYON}
-        </button>
-        <button
-          hx-target="#it-works"
-          hx-swap="outerHTML"
-          style="color: white; background: #2FD080;"
-          hx-get={place10}
-          class="btn">
-          He should be in {PLACES.MOJAVE_DESERT} then
-        </button>
+        style={{ zIndex: 1, position: "relative", height: "fit-content" }}
+        class="container py-10 flex flex-col h-screen w-full items-center justify-center gap-16">
+        <div
+          class="leading-10 text-6xl"
+          style="line-height: 4rem;font-size: 40px;padding: 0 20px;"
+          dangerouslySetInnerHTML={{
+            __html: heading,
+          }}
+        />
+        <div
+          class="leading-10 text-xl"
+          style={{ textAlign: "center", padding: `0 20px` }}
+          dangerouslySetInnerHTML={{
+            __html: subText,
+          }}
+        />
+        <div
+          style="display: flex;
+          flex-flow: row wrap;
+          gap: 20px;
+          padding: 20px;
+          justify-content: center;
+          align-items: center;">
+          <button
+            hx-target="#it-works"
+            hx-swap="outerHTML"
+            style={styleButton}
+            hx-get={place1}
+            class="btn">
+            Search in {PLACES.AMAZON_JUNGLE}
+          </button>
+          <button
+            hx-target="#it-works"
+            hx-swap="outerHTML"
+            style={styleButton}
+            hx-get={place2}
+            class="btn">
+            He might be in {PLACES.GREAT_BARRIER_REEF}
+          </button>
+          <button
+            hx-target="#it-works"
+            hx-swap="outerHTML"
+            style={styleButton}
+            hx-get={place3}
+            class="btn">
+            He must be in {PLACES.HIMALAYAS}
+          </button>
+          <button
+            hx-target="#it-works"
+            hx-swap="outerHTML"
+            style={styleButton}
+            hx-get={place4}
+            class="btn">
+            Please be here in {PLACES.SERENGETI_PLAINS}
+          </button>
+          <button
+            hx-target="#it-works"
+            hx-swap="outerHTML"
+            style={styleButton}
+            hx-get={place5}
+            class="btn">
+            Surely he is here in {PLACES.DEATH_VALLEY}
+          </button>
+          <button
+            hx-target="#it-works"
+            hx-swap="outerHTML"
+            style={styleButton}
+            hx-get={place7}
+            class="btn">
+            Maybe he is in {PLACES.SIBERIAN_TUNDRA}
+          </button>
+          <a
+            href="/sahara-desert"
+            target="_self"
+            class="btn"
+            style={styleButton}>
+            He could be in {PLACES.SAHARA_DESERT}
+          </a>
+          <button
+            hx-target="#it-works"
+            hx-swap="outerHTML"
+            style={styleButton}
+            hx-get={place8}
+            class="btn">
+            Hopefully he should be in {PLACES.ROCKY_MOUNTAINS}
+          </button>
+          <button
+            hx-target="#it-works"
+            hx-swap="outerHTML"
+            style={styleButton}
+            hx-get={place9}
+            class="btn">
+            Definitely he is in {PLACES.GRAND_CANYON}
+          </button>
+          <button
+            hx-target="#it-works"
+            hx-swap="outerHTML"
+            style={styleButton}
+            hx-get={place10}
+            class="btn">
+            He should be in {PLACES.MOJAVE_DESERT} then
+          </button>
+        </div>
+        <img src={""} />
+        {/* <div class="text-sm">Powered by HTMX</div> */}
       </div>
-      <img src={""} />
-      {/* <div class="text-sm">Powered by HTMX</div> */}
     </div>
   );
 }
