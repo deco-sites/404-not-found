@@ -109,7 +109,11 @@ export default function Section({
   `;
 
   return (
-    <div id="it-works">
+    <div
+      id="it-works"
+      style="    display: flex;
+    place-items: center;
+    height: 100vh;">
       <div
         style={{
           position: "fixed",

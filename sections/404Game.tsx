@@ -2518,7 +2518,11 @@ export default function Section({
   };
 
   return (
-    <div id="it-works" style="background: #fef6ce;">
+    <div
+      id="it-works"
+      style="background: #fef6ce;   display: flex;
+    place-items: center;
+    height: 100vh;">
       {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <link
