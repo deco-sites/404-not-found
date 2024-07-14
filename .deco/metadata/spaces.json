@@ -520,7 +520,7 @@
             "content": [
               {
                 "type": "stack",
-                "width": 60.217983651226156,
+                "width": 50,
                 "isClosable": true,
                 "reorderEnabled": true,
                 "title": "",
@@ -541,7 +541,7 @@
               },
               {
                 "type": "stack",
-                "width": 39.782016348773844,
+                "width": 50,
                 "isClosable": true,
                 "reorderEnabled": true,
                 "title": "",
@@ -1720,7 +1720,7 @@
             "content": [
               {
                 "type": "stack",
-                "width": 41.66666666666667,
+                "width": 30,
                 "isClosable": true,
                 "reorderEnabled": true,
                 "title": "",
@@ -1742,7 +1742,7 @@
               },
               {
                 "type": "stack",
-                "width": 58.333333333333336,
+                "width": 70,
                 "isClosable": true,
                 "reorderEnabled": true,
                 "title": "",
@@ -1757,8 +1757,7 @@
                       "id": "%2F.deco%2Fblocks%2Fpages-404-480700.json::Preview::visibility::Preview::%7B%7D"
                     },
                     "isClosable": true,
-                    "reorderEnabled": true,
-                    "width": 70
+                    "reorderEnabled": true
                   }
                 ]
               }
@@ -1794,8 +1793,7 @@
           "id": "%2F.deco%2Fblocks%2Fpages-404-480700.json::Preview::visibility::Preview::%7B%7D",
           "state": {
             "__signal": null
-          },
-          "width": 70
+          }
         }
       }
     },

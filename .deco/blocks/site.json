@@ -2,7 +2,7 @@
   "seo": {
     "type": "website",
     "jsonLDs": [],
-    "noIndexing": true,
+    "noIndexing": false,
     "description": "Please find my Capy and brig him back!",
     "titleTemplate": "%s | deco.cx",
     "descriptionTemplate": "My Capy is lost! Please find my Capy and bring him back from around the world.",
