@@ -2758,11 +2758,11 @@ export const Motivation = ({
           z-index: 1;
           bottom: 125%; 
           left: 50%;
-          margin-left: -352px;
+          margin-left: -402px;
        font-family: sans-serif, system-ui;
           line-height: 1.6rem;
           font-size: 14px;
-          width: 380px;
+          width: 430px;
         }
 
         .info-button:hover .hover-text {
