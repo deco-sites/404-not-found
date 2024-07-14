@@ -2700,18 +2700,23 @@ export const Motivation = ({
   <p>Motivation behind - Find my Capy | 404 page game</p>
             <br />
             <p>
-              I wanted to explore the below things deco.cx
+              I wanted to explore the below things deco.cx and use my
+              <ul style="gap: 10px;">
               <li>
-                A fun and interactive game (Yes making a working game in deco is
-                hard :(
+                Design/Creativity - Initially I just wanted to create a game which can be placed in the 404 page. But then I thought lets tell a story of lost Capy and customize the game accordingly. A fun & interactive game (Yes making a working game in deco is
+                hard :( but it was fun making it :)
               </li>
               <li>
                 Make something innovative (in Open category) rather than a simple
                 boring static regular submission
               </li>
               <li>
-                Test if game assets and properties to be fully customizable (in deco admin)
+                Editability - Test if game assets and properties to be fully customizable (in deco admin)
               </li>
+               <li>
+                Performant - To make a game while still being performant (Can I achieve that? - Yes it does have a good Page Score).
+              </li>
+              </ul>
             </p>
             <br />
             <p>
@@ -2763,6 +2768,12 @@ export const Motivation = ({
         .info-button:hover .hover-text {
           display: block;
         }
+          ul {
+          list-style: disc;
+          }
+          ul>li {
+            padding: 15px 0;
+          }
 
         `}</style>
       <button className="btn info-button">
